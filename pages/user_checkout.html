@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SinGourmet - User</title>
+  <link rel="stylesheet" href="../assets/css_public/bootstrap.css?version=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../assets/css_public/style.css?version=1">
+  <link rel="stylesheet" href="../assets/css_public/subscribe.css?version=1">
+</head>
+<body class="sub_page">
+  <div class="hero_area">
+    <div class="bg-box">
+      <img src="../assets/images_public/hero-bg.jpg" alt="">
+    </div>
+    <!-- header section starts -->
+    <header class="header_section">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg custom_nav-container ">
+          <a class="navbar-brand" href="../index.html">
+            <span>SinGourmet</span>
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class=""> </span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mx-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="../index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="recipe.html">Recipe</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="about.html">About</a>
+              </li>
+            </ul>
+            <div class="user_option">
+              <a href="user.html" class="user_link">
+                <i class="fa fa-user" aria-hidden="true"></i>
+              </a>
+              <a class="cart_link" href="subscribe.html">
+                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewbox="0 0 64 64" style="enable-background:new 0 0 64 64;" xml:space="preserve">
+                  <path d="M32,2C17.64,2,6,13.64,6,28v14c0,2.21,1.79,4,4,4h4c2.21,0,4-1.79,4-4V28c0-8.84,7.16-16,16-16s16,7.16,16,16v14
+                          c0,2.21,1.79,4,4,4h4c2.21,0,4-1.79,4-4V28C58,13.64,46.36,2,32,2z M18,48c-1.1,0-2,0.9-2,2v2c0,1.1,0.9,2,2,2h4
+                          c1.1,0,2-0.9,2-2v-2c0-1.1-0.9-2-2-2H18z M50,48c-1.1,0-2,0.9-2,2v2c0,1.1,0.9,2,2,2h4c1.1,0,2-0.9,2-2v-2c0-1.1-0.9-2-2-2H50z"/>
+                  <path d="M24,38h16c1.1,0,2-0.9,2-2s-0.9-2-2-2H24c-1.1,0-2,0.9-2,2S22.9,38,24,38z"/>
+                </svg>
+              </a>
+              <form class="form-inline">
+                <button class="btn my-2 my-sm-0 nav_search-btn" type="submit">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+              </form>
+              <a href="../php/logout.php" class="order_online" id="authButton"></a>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- end header section -->
+  </div>
+  <!-- end header section -->
+	<!-- login section -->
+  <section class="book_section layout_padding">
+    <div class="container">
+        <div class="heading_container">
+            <h2>Checkout</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form_container">
+                    <!-- Checkout Form -->
+                    <form id="checkoutForm" method="POST" action="../php/user_checkout.php" onsubmit="return validateCheckoutForm();">
+                        <div id="messageContainer" class="error"></div>
+                        <div>
+                            <input type="text" name="name" class="form-control" placeholder="Name on Card" required />
+                        </div>
+                        <div class="card-number-container" style="position: relative;">
+                          <input type="text" name="cardNum" id="cardNumber" class="form-control" placeholder="Card Number" required />
+                          <i class="fa-brands fa-cc-visa card-icon" id="visaIcon"></i>
+                        </div>
+                        <div>
+                          <input type="text" name="expiryDate" id="expiryDate" class="form-control" placeholder="MM/YY" required />
+                        </div>
+                        <div style="position: relative;">
+                          <input type="password" name="CVV" id="CVV" class="form-control" placeholder="CVV" maxlength="3" required />
+                          <i class="fa fa-eye-slash" id="toggleLoginPassword" onclick="togglePasswordVisibility()" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;"></i>
+                        </div>
+                        <div class="btn_box">
+                          <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="summary-container">
+                    <h3>Order Summary</h3>
+                    <p id="summaryText"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>
+	<!-- end login section -->
+	<footer class="footer_section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 footer-col">
+          <div class="footer_contact">
+            <h4>Contact Us</h4>
+            <div class="contact_link_box">
+              <a href="">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span>Location</span>
+              </a>
+              <a href="">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span>Call +01 1234567890</span>
+              </a>
+              <a href="">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <span>demo@gmail.com</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 footer-col">
+          <div class="footer_detail">
+            <a href="" class="footer-logo">
+              Singourmet
+            </a>
+            <p>
+              Where every recipe tells a story
+            </p>
+            <div class="footer_social">
+              <a href=""><i class="fa fa-facebook" aria-hidden="true"></i></a>
+              <a href=""><i class="fa fa-twitter" aria-hidden="true"></i></a>
+              <a href=""><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+              <a href=""><i class="fa fa-instagram" aria-hidden="true"></i></a>
+              <a href=""><i class="fa fa-pinterest" aria-hidden="true"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 footer-col">
+          <h4>Website Opening Hours</h4>
+          <p>Everyday</p>
+          <p>24H</p>
+        </div>
+      </div>
+      <div class="footer-info">
+        <p>&copy; <span id="displayYear"></span> All Rights Reserved By <a href="https://html.design/">Free Html Templates</a><br><br>&copy; <span id="displayYear2"></span> Distributed By <a href="https://themewagon.com/" target="_blank">ThemeWagon</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- jQuery -->
+  <script src="../assets/js_public/jquery-3.4.1.min.js"></script>
+  <!-- popper js -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <!-- bootstrap js -->
+  <script src="../assets/js_public/bootstrap.js?version=1"></script>
+  <!-- owl slider -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+  <!-- isotope js -->
+  <script src="https://unpkg.com/isotope-layout@3.0.4/dist/isotope.pkgd.min.js"></script>
+  <!-- nice select -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
+  <!-- custom js -->
+  <script src="../assets/js_public/custom.js?version=3"></script>
+  <script src="../assets/js_public/user_checkout.js?version=5"></script>
+
+</body>
+
+</html>

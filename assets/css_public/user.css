@@ -1,0 +1,114 @@
+.content_section {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  text-align: center;
+}
+
+.profile_section {
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 30px;
+}
+
+.profile_image {
+  display: inline-block;
+  position: relative;
+  vertical-align: top;
+
+}
+
+.profile_info {
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 40px;
+}
+
+.profile_stats {
+  margin-bottom: 40px;
+}
+
+.profile_picture {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.tabs_section {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+
+.tab_btn {
+  border: none;
+  background-color:white;
+}
+
+
+.item {
+  text-align: center;
+}
+
+.item_picture {
+  width: 300px;
+  height: 200px;
+  border-radius: 0%;
+  object-fit: cover;
+}
+
+.view_more_btn {
+  grid-column: span 3;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+
+.tab_btn.active {
+  border-top: 1px solid #000;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+}
+
+
+#changeProfilePicLink {
+  position: absolute;
+  bottom: 0; /* Position at the bottom of the profile image */
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%); /* Correct for the natural alignment */
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  color: white;
+  text-decoration: none; /* Remove underline */
+  padding: 5px 10px;
+  border-radius: 0 0 50% 50%; /* Match the bottom curve to the image */
+  cursor: pointer;
+  font-size: 12px; /* Adjust the font size to fit the image */
+}
+
+#changeProfilePicLink:hover {
+  background-color: rgba(0, 0, 0, 0.7); /* Darken the background on hover */
+  text-decoration: underline; /* Optional underline on hover */
+}
+
+#profilePicInput {
+  display: none; /* Hide the file input */
+}
+
+.subscribe-button {
+  background-color: #f8b400;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.subscribe-button:hover {
+  background-color: #e89c00;
+}
