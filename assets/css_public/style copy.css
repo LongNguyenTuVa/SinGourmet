@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap");
-
 html, body {
   height: 100%;
   margin: 0;
@@ -7,23 +6,6 @@ html, body {
   color: #0c0c0c;
   background-color: #ffffff;
   overflow-x: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-body {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-}
-
-.main-content {
-  flex: 1;
   display: flex;
   flex-direction: column;
 }
@@ -52,14 +34,22 @@ body {
   padding-bottom: 90px;
 }
 
-h1, h2 {
+h1,
+h2 {
   font-family: 'Dancing Script', cursive;
 }
 
 .heading_container {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
 }
 
 .heading_container h2 {
@@ -79,30 +69,43 @@ h1, h2 {
 }
 
 .heading_container.heading_center {
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   text-align: center;
 }
 
-a, a:hover, a:focus {
+a,
+a:hover,
+a:focus {
   text-decoration: none;
 }
 
-a:hover, a:focus {
+a:hover,
+a:focus {
   color: initial;
 }
 
-.btn, .btn:focus {
+.btn,
+.btn:focus {
   outline: none !important;
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 /*header section*/
 .hero_area {
   position: relative;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  display: -webkit-box;
+  display: -ms-flexbox;
   flex-shrink: 0;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  
 }
 
 .bg-box {
@@ -116,7 +119,8 @@ a:hover, a:focus {
 .bg-box img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .sub_page .hero_area {
@@ -134,8 +138,10 @@ a:hover, a:focus {
 .sub_page .hero_area .bg-box img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: right top;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: right top;
+     object-position: right top;
 }
 
 .header_section {
@@ -171,11 +177,11 @@ a:hover, a:focus {
   text-align: center;
   text-transform: uppercase;
   border-radius: 5px;
+  -webkit-transition: all 0.3s;
   transition: all 0.3s;
 }
 
-.custom_nav-container .navbar-nav .nav-item:hover .nav-link,
-.custom_nav-container .navbar-nav .nav-item.active .nav-link {
+.custom_nav-container .navbar-nav .nav-item:hover .nav-link, .custom_nav-container .navbar-nav .nav-item.active .nav-link {
   color: #ffbe33;
 }
 
@@ -193,8 +199,12 @@ a:hover, a:focus {
 }
 
 .user_option {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .user_option a {
@@ -210,9 +220,15 @@ a:hover, a:focus {
 }
 
 .user_option .cart_link {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .user_option .cart_link svg {
@@ -232,6 +248,7 @@ a:hover, a:focus {
   background-color: #ffbe33;
   color: #ffffff;
   border-radius: 45px;
+  -webkit-transition: all 0.3s;
   transition: all 0.3s;
   border: none;
 }
@@ -248,6 +265,7 @@ a:hover, a:focus {
   padding: 0;
   width: 37px;
   height: 42px;
+  -webkit-transition: all 0.3s;
   transition: all 0.3s;
 }
 
@@ -257,14 +275,14 @@ a:hover, a:focus {
   height: 4px;
   background-color: #ffffff;
   margin: 7px 0;
+  -webkit-transition: all 0.3s;
   transition: all 0.3s;
   position: relative;
   border-radius: 5px;
   transition: all 0.3s;
 }
 
-.custom_nav-container .navbar-toggler span::before,
-.custom_nav-container .navbar-toggler span::after {
+.custom_nav-container .navbar-toggler span::before, .custom_nav-container .navbar-toggler span::after {
   content: "";
   position: absolute;
   left: 0;
@@ -273,6 +291,7 @@ a:hover, a:focus {
   background-color: #ffffff;
   top: -10px;
   border-radius: 5px;
+  -webkit-transition: all 0.3s;
   transition: all 0.3s;
 }
 
@@ -281,31 +300,41 @@ a:hover, a:focus {
 }
 
 .custom_nav-container .navbar-toggler[aria-expanded="true"] {
-  transform: rotate(360deg);
+  -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
 }
 
 .custom_nav-container .navbar-toggler[aria-expanded="true"] span {
-  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
 }
 
-.custom_nav-container .navbar-toggler[aria-expanded="true"] span::before,
-.custom_nav-container .navbar-toggler[aria-expanded="true"] span::after {
-  transform: rotate(90deg);
+.custom_nav-container .navbar-toggler[aria-expanded="true"] span::before, .custom_nav-container .navbar-toggler[aria-expanded="true"] span::after {
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
   top: 0;
 }
 
 /*end header section*/
 /* slider section */
 .slider_section {
-  flex: 1;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   position: relative;
   padding: 45px 0 75px 0;
 }
 
 .slider_section .row {
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .slider_section #customCarousel1 {
@@ -334,6 +363,7 @@ a:hover, a:focus {
   background-color: #ffbe33;
   color: #ffffff;
   border-radius: 45px;
+  -webkit-transition: all 0.3s;
   transition: all 0.3s;
   border: none;
   margin-top: 10px;
@@ -350,8 +380,12 @@ a:hover, a:focus {
 .slider_section .carousel-indicators {
   position: unset;
   margin: 0;
-  justify-content: flex-start;
-  align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .slider_section .carousel-indicators li {
@@ -374,8 +408,12 @@ a:hover, a:focus {
 }
 
 .offer_section .box {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   margin-top: 45px;
   border-radius: 5px;
   padding: 20px 15px;
@@ -389,6 +427,7 @@ a:hover, a:focus {
   height: 175px;
   margin-right: 15px;
   position: relative;
+  -webkit-transition: all 0.1 0.5s;
   transition: all 0.1 0.5s;
   border-radius: 100%;
   border: 5px solid #ffbe33;
@@ -397,6 +436,7 @@ a:hover, a:focus {
 
 .offer_section .box .img-box img {
   width: 100%;
+  -webkit-transition: all .2s;
   transition: all .2s;
 }
 
@@ -422,6 +462,7 @@ a:hover, a:focus {
   background-color: #ffbe33;
   color: #ffffff;
   border-radius: 45px;
+  -webkit-transition: all 0.3s;
   transition: all 0.3s;
   border: none;
 }
@@ -438,14 +479,20 @@ a:hover, a:focus {
 }
 
 .offer_section .box:hover .img-box img {
-  transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
 }
 
 .food_section .filters_menu {
   padding: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   list-style-type: none;
   margin: 45px 0 20px 0;
 }
@@ -474,9 +521,15 @@ a:hover, a:focus {
 
 .food_section .box .img-box {
   background: #f1f2f3;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   height: 215px;
   border-radius: 0 0 0 45px;
   margin: -1px;
@@ -486,6 +539,7 @@ a:hover, a:focus {
 .food_section .box .img-box img {
   max-width: 100%;
   max-height: 145px;
+  -webkit-transition: all .2s;
   transition: all .2s;
 }
 
@@ -506,8 +560,12 @@ a:hover, a:focus {
 }
 
 .food_section .box .options {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-between;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .food_section .box .options a {
@@ -515,9 +573,15 @@ a:hover, a:focus {
   height: 40px;
   border-radius: 100%;
   background: #ffbe33;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .food_section .box .options a svg {
@@ -527,12 +591,17 @@ a:hover, a:focus {
 }
 
 .food_section .box:hover .img-box img {
-  transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
 }
 
 .food_section .btn-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   margin-top: 45px;
 }
 
@@ -542,6 +611,7 @@ a:hover, a:focus {
   background-color: #ffbe33;
   color: #ffffff;
   border-radius: 45px;
+  -webkit-transition: all 0.3s;
   transition: all 0.3s;
   border: none;
 }
@@ -556,13 +626,19 @@ a:hover, a:focus {
 }
 
 .about_section .row {
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .about_section .img-box {
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .about_section .img-box img {
@@ -582,6 +658,7 @@ a:hover, a:focus {
   background-color: #ffbe33;
   color: #ffffff;
   border-radius: 45px;
+  -webkit-transition: all 0.3s;
   transition: all 0.3s;
   border: none;
   margin-top: 15px;
@@ -610,7 +687,8 @@ a:hover, a:focus {
   color: #000000;
   border-radius: 5px;
   outline: none;
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 .book_section .form_container .form-control::-webkit-input-placeholder {
@@ -642,6 +720,7 @@ a:hover, a:focus {
   background-color: #ffbe33;
   color: #ffffff;
   border-radius: 45px;
+  -webkit-transition: all 0.3s;
   transition: all 0.3s;
   border: none;
 }
@@ -669,16 +748,27 @@ a:hover, a:focus {
 }
 
 .client_section .box {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   margin: 15px;
 }
 
 .client_section .box .img-box {
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   width: 115px;
   position: relative;
   margin-top: 30px;
@@ -698,7 +788,8 @@ a:hover, a:focus {
   width: 20px;
   height: 20px;
   background-color: #ffbe33;
-  transform: rotate(45deg) translateX(-50%);
+  -webkit-transform: rotate(45deg) translateX(-50%);
+          transform: rotate(45deg) translateX(-50%);
 }
 
 .client_section .box .detail-box {
@@ -721,8 +812,12 @@ a:hover, a:focus {
 }
 
 .client_section .owl-carousel .owl-nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   margin-top: 45px;
   padding: 0 15px;
 }
@@ -783,8 +878,12 @@ a:hover, a:focus {
 }
 
 .contact_section .form_container .btn-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .contact_section .form_container button {
@@ -796,6 +895,7 @@ a:hover, a:focus {
   background-color: #ffbe33;
   color: #ffffff;
   border-radius: 0px;
+  -webkit-transition: all 0.3s;
   transition: all 0.3s;
   border: none;
 }
@@ -820,20 +920,18 @@ a:hover, a:focus {
   color: #ffffff;
   padding: 75px 0 40px 0;
   text-align: center;
-  position: flex;
-  bottom: 0;
-  width: 100%;
+  position: relative;
   flex-shrink: 0;
-}
-footer_section {
-  margin-top: auto;
+  bottom: 0;
+  width: 100%
 }
 
 .footer_section h4 {
   font-size: 28px;
 }
 
-.footer_section h4, .footer_section .footer-logo {
+.footer_section h4,
+.footer_section .footer-logo {
   font-weight: 600;
   margin-bottom: 20px;
   font-family: 'Dancing Script', cursive;
@@ -848,8 +946,13 @@ footer_section {
 }
 
 .footer_section .footer_contact .contact_link_box {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .footer_section .footer_contact .contact_link_box a {
@@ -874,16 +977,26 @@ footer_section {
 }
 
 .footer_section .footer_social {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   margin-top: 20px;
   margin-bottom: 10px;
 }
 
 .footer_section .footer_social a {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   color: #222831;
   width: 30px;
   height: 30px;
@@ -911,7 +1024,7 @@ footer_section {
 .footer_section .footer-info p a {
   color: inherit;
 }
-
+/*# sourceMappingURL=style.css.map */
 .text-welcome {
   flex: 2; 
   padding-left: 20px; 
@@ -922,10 +1035,8 @@ footer_social_about a{
   height: 10vh;
 }
 
-#recipe-container .col-sm-6 {
-  display: none;
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
-.preserve-whitespace {
-  white-space: pre-line;
-}
-

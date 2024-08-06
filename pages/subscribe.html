@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="../assets/css_public/style.css?version=2">
   <link rel="stylesheet" href="../assets/css_public/subscribe.css?version=1">
 </head>
-<style>
+<!-- <style>
   body {
   background-color: #dff9fb;
   min-height: 100vh;
@@ -32,7 +32,7 @@
     text-align: center;
     margin-bottom: 4rem;
   }
-</style>
+</style> -->
 <body class="sub_page">
   <div class="hero_area">
     <div class="bg-box">
@@ -73,9 +73,9 @@
                 </svg>
               </a>
               <form class="form-inline">
-                <button class="btn my-2 my-sm-0 nav_search-btn" type="submit">
+                <!-- <button class="btn my-2 my-sm-0 nav_search-btn" type="submit">
                   <i class="fa fa-search" aria-hidden="true"></i>
-                </button>
+                </button> -->
               </form>
               <a href="../php/logout.php" class="order_online" id="authButton"></a>
             </div>
@@ -85,6 +85,7 @@
     </header>
     <!-- end header section -->
   </div>
+
 	<section>
 		<div class="plan_div">
 			<h1>Choose the plan that fits your culinary journey</h1>
@@ -194,8 +195,33 @@
   <!-- nice select -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
   <!-- custom js -->
-  <script src="../assets/js_public/custom.js?version=1"></script>
+  <!-- <script src="../assets/js_public/custom.js?version=10"></script> -->
   <script src="../assets/js_public/subscribe.js?version=1"></script>
+  <script>
+    window.onload = function() {
+      fetch('../../php/user.php')
+        .then(response => response.json())
+        .then(data => {
+          console.log('Fetched data:', data); // Debug log
+
+          if (data.loggedIn) {
+            document.getElementById('authButton').textContent = 'Log out';
+            document.getElementById('authButton').href = '../php/logout.php'; // Redirect to logout script
+
+            if (data.success && data.filePath) {
+              document.getElementById('profilePicture').src = data.filePath;
+            }
+
+            document.getElementById('username').textContent = data.username;
+            document.getElementById('email').textContent = data.email;
+          } else {
+            document.getElementById('authButton').textContent = 'Log in';
+            document.getElementById('authButton').href = '../../pages/user_login.html'; // Redirect to login page
+          }
+        })
+        .catch(error => console.error('Error fetching user data:', error));
+    };
+  </script>
 
 </body>
 

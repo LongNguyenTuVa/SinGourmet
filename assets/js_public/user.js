@@ -1,134 +1,204 @@
-// JavaScript for user page
 document.addEventListener('DOMContentLoaded', function() {
   const tierMapping = {
     1: 'Free',
     2: 'Community',
     3: 'Chef'
   };
+  let allRecipes = [];
+  let userTier = 1; // Default to 'free' tier
+  // Mapping of string descriptions to numerical tiers
+  const tierMappingString = {
+    "free": 1,
+    "community": 2,
+    "chef": 3
+  };
+
   // Make an AJAX request to fetch user data
   fetch('../../php/fetch_user_data.php')
     .then(response => response.json())
     .then(data => {
       console.log('Fetched user data:', data); // Debug log
-        if (data.error) {
-            alert(data.error);
-            // Optionally redirect to login page if not logged in
-            window.location.href = '../../pages/user_login.html';
-        } else {
-            // Update the page content with user data
-            document.getElementById('username').textContent = data.username;
-            document.getElementById('email').textContent = data.email;
-            // Get the tier name from the mapping
-            const tierName = tierMapping[data.tier] || 'Unknown';
-            document.getElementById('tier').textContent = tierName;
-        }
+      if (data.error) {
+        alert(data.error);
+        // Optionally redirect to login page if not logged in
+        window.location.href = '../../pages/user_login.html';
+      } else {
+        // Update the page content with user data
+        document.getElementById('username').textContent = data.username;
+        document.getElementById('email').textContent = data.email;
+        // Get the tier name from the mapping
+        const tierName = tierMapping[data.tier] || 'Unknown';
+        document.getElementById('tier').textContent = tierName;
+      }
     })
     .catch(error => {
-        console.error('Error fetching user data:', error);
+      console.error('Error fetching user data:', error);
     });
 
-  // Tab functionality
-  document.getElementById('ownTab').addEventListener('click', () => {
-    showSection('ownContent');
-    setActiveTab('ownTab');
-  });
+  fetch('../../php/fetch_recipe_user.php')
+    .then(response => response.json())
+    .then(data => {
+      console.log("Fetched data:", data);
+      allRecipes = data.recipes;
+      userTier = parseInt(data.user_tier, 10);
+      console.log("User Tier:", userTier);
+      renderRecipes(allRecipes, userTier);
+      applyFilters();
+    })
+    .catch(error => console.error('Error fetching recipes:', error));
 
-  document.getElementById('freeTab').addEventListener('click', () => {
-    showSection('freeContent');
-    setActiveTab('freeTab');
-  });
+  function renderRecipes(recipes, userTier) {
+    const container = document.getElementById('user-container');
+    container.innerHTML = ''; // Clear existing content
+    recipes.forEach(recipe => {
+      const recipeElement = document.createElement('div');
+      const recipeTier = tierMappingString[recipe.tier.toLowerCase()];
+      recipeElement.classList.add('col-sm-6', 'col-lg-4', 'all', `tier-${recipeTier}`);
+      console.log("html:", `tier-${recipeTier}`);
 
-  document.getElementById('communityTab').addEventListener('click', () => {
-    showSection('communityContent');
-    setActiveTab('communityTab');
-  });
-
-  document.getElementById('chefTab').addEventListener('click', () => {
-    showSection('chefContent');
-    setActiveTab('chefTab');
-  });
-
-  // View more functionality
-  document.getElementById('viewMoreOwn').addEventListener('click', () => {
-    loadMoreItems('ownContent', 'own', ownIndex);
-    setActiveTab('ownTab');
-  });
-
-  document.getElementById('viewMoreFree').addEventListener('click', () => {
-    loadMoreItems('freeContent', 'free', freeIndex);
-    setActiveTab('freeTab');
-  });
-
-  document.getElementById('viewMoreCommunity').addEventListener('click', () => {
-    loadMoreItems('communityContent', 'community', communityIndex);
-    setActiveTab('communityTab');
-  });
-
-  document.getElementById('viewMoreChef').addEventListener('click', () => {
-    loadMoreItems('chefContent', 'chef', chefIndex);
-    setActiveTab('chefTab');
-  });
-
-  let ownIndex = 0;
-  let freeIndex = 0;
-  let communityIndex = 0;
-  let chefIndex = 0;
-
-  function showSection(sectionId) {
-    const sections = document.querySelectorAll('.content_section');
-    sections.forEach(section => {
-      section.style.display = 'none';
+      recipeElement.innerHTML = `
+        <div class="box" data-recipe-id="${recipe.id}">
+          <div>
+            <div class="img-box">
+              <img src="../${recipe.image_url}" alt="${recipe.title}">
+            </div>
+            <div class="detail-box">
+              <h5>${recipe.title}</h5>
+              <p>${recipe.description}</p>
+              <p>Category: ${recipe.category}</p>
+              <p>Tier: ${recipe.tier}</p>
+              <button class="remove-recipe-btn" title="Remove from My Recipes">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+      container.appendChild(recipeElement);
     });
-    document.getElementById(sectionId).style.display = 'grid';
+    showMoreRecipes(); // Show initial set of recipes
+    attachRecipeClickEvents();
   }
 
-  function loadMoreItems(sectionId, type, startIndex) {
-    const section = document.getElementById(sectionId);
-    for (let i = 0; i < 6; i++) {
-      const index = startIndex + i;
-      if (index >= 10) break; // Assuming we have 50 items for each type
-      const newItem = document.createElement('div');
-      newItem.className = 'item';
-      newItem.innerHTML = `<img src="../assets/images_public/${type}${index + 1}.png" alt="Food Image" class="item_picture"><p>${capitalize(type)} Recipe</p>`;
-      section.insertBefore(newItem, section.querySelector('.view_more_btn'));
+  function applyFilters() {
+    const filters = document.querySelectorAll('.filters_menu li');
+    const recipes = document.querySelectorAll('#user-container .col-sm-6');
+
+    filters.forEach(filter => {
+      filter.addEventListener('click', function() {
+        filters.forEach(f => f.classList.remove('active'));
+        this.classList.add('active');
+
+        const filterValue = this.getAttribute('data-filter');
+        const filterTier = parseInt(filterValue, 10);
+
+        const filteredRecipes = allRecipes.filter(recipe => filterValue === '*' || tierMappingString[recipe.tier.toLowerCase()] === filterTier);
+        renderRecipes(filteredRecipes, userTier);
+
+        showMoreRecipes(true); // Reset and show initial set of recipes for the selected filter
+      });
+    });
+  }
+
+  function showMoreRecipes(reset = false) {
+    const recipes = document.querySelectorAll('#user-container .col-sm-6');
+    let currentlyVisible = reset ? 0 : document.querySelectorAll('#user-container .col-sm-6[style="display: block;"]').length;
+    const increment = 3;
+
+    recipes.forEach((recipe, index) => {
+      if (index < currentlyVisible + increment) {
+        recipe.style.display = 'block';
+      } else {
+        recipe.style.display = 'none';
+      }
+    });
+
+    currentlyVisible += increment;
+
+    const viewMoreButton = document.getElementById('view-more');
+    if (currentlyVisible >= recipes.length) {
+      viewMoreButton.style.display = 'none';
+    } else {
+      viewMoreButton.style.display = 'block';
     }
-    if (type === 'Chinese') ownIndex += 6;
-    if (type === 'Indian') freeIndex += 6;
-    if (type === 'Western') communityIndex += 6;
-    if (type === 'f') chefIndex += 6;
   }
 
-  function capitalize(word) {
-    return word.charAt(0).toUpperCase() + word.slice(1);
-  }
+  document.getElementById('view-more').addEventListener('click', function(event) {
+    event.preventDefault();
+    showMoreRecipes();
+  });
 
-  function setActiveTab(tabId) {
-    const tabs = document.querySelectorAll('.tab_btn');
-    tabs.forEach(tab => {
-      tab.classList.remove('active');
+  function attachRecipeClickEvents() {
+    const recipeBoxes = document.querySelectorAll('.box[data-recipe-id]');
+    recipeBoxes.forEach(box => {
+      box.addEventListener('click', function() {
+        const recipeId = this.getAttribute('data-recipe-id');
+        const recipe = allRecipes.find(r => r.id == recipeId);
+        const recipeTier = tierMappingString[recipe.tier.toLowerCase()];
+        console.log("User Tier:", userTier, "Recipe Tier:", recipeTier);
+        if ((userTier === 1 && recipeTier !== 1) || (userTier === 2 && recipeTier === 3)) {
+          showAccessDeniedModal();
+        } else {
+          showRecipeModal(recipe);
+        }
+      });
+
+      // Add click event for the remove button
+      const removeButton = box.querySelector('.remove-recipe-btn');
+      removeButton.addEventListener('click', function (event) {
+        event.stopPropagation(); // Prevent triggering the box click event
+        const recipeId = box.getAttribute('data-recipe-id');
+        removeRecipeFromUser(recipeId, box);
+      });
     });
-    document.getElementById(tabId).classList.add('active');
   }
 
+  function removeRecipeFromUser(recipeId, recipeElement) {
+    fetch('../../php/remove_recipe_from_user.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ recipeId: recipeId })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Recipe removed from your account successfully!');
+            recipeElement.remove(); // Remove the recipe element from the DOM
+        } else {
+            alert('Failed to remove recipe: ' + data.message);
+        }
+    })
+    .catch(error => console.error('Error removing recipe:', error));
+  }
 
+  function showRecipeModal(recipe) {
+    const modalContent = document.getElementById('modalContent');
+    modalContent.innerHTML = `
+      <h2>${recipe.title}</h2>
+      <img src="../${recipe.image_url}" alt="${recipe.title}" class="img-fluid">
+      <div><strong>Description:</strong></div><div>${recipe.description}</div>
+      <div><strong>Ingredients:</strong></div><div class="preserve-whitespace">${recipe.ingredient}</div>
+      <div><strong>Steps:</strong></div><div class="preserve-whitespace">${recipe.step}</div>
+      <div><strong>Category:</strong></div><div>${recipe.category}</div>
+      <div><strong>Tier:</strong></div><div>${recipe.tier}</div>
+    `;
+    const recipeModal = new bootstrap.Modal(document.getElementById('recipeModal'));
+    recipeModal.show();
+  }
 
-// I want default display 6 items
-  // Initial load for "Own" section
-  showSection('ownContent');
-  loadMoreItems('ownContent', 'Chinese', ownIndex);
-
-  // Initial load for "Free" section
-  showSection('freeContent');
-  loadMoreItems('freeContent', 'Indian', freeIndex);
-
-  // Initial load for "community" section
-  showSection('communityContent');
-  loadMoreItems('communityContent', 'Western', communityIndex);
-
-  // Initial load for "Chef" section
-  showSection('chefContent');
-  loadMoreItems('chefContent', 'f', chefIndex);
-
+  function showAccessDeniedModal() {
+    const modalContent = document.getElementById('modalContent');
+    modalContent.innerHTML = `
+      <h2>Access Denied</h2>
+      <p>You do not have access to view this recipe. Please upgrade your tier to access more recipes.</p>
+    `;
+    const accessDeniedModal = new bootstrap.Modal(document.getElementById('recipeModal'));
+    accessDeniedModal.show();
+  }
 });
 
 // JavaScript for profile picture

@@ -112,3 +112,55 @@
 .subscribe-button:hover {
   background-color: #e89c00;
 }
+
+/* Full-screen modal */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0, 0, 0, 0.4); /* Black with opacity */
+  backdrop-filter: blur(5px); /* Blur the background */
+  -webkit-backdrop-filter: blur(5px); /* Safari support */
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%; /* Could be more or less, depending on screen size */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  border-radius: 10px;
+  text-align: left; /* Left align the form */
+}
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+}
+.modal-content form label,
+.modal-content form input,
+.modal-content form textarea,
+.modal-content form select,
+.modal-content form button {
+  margin-bottom: 10px;
+}
+
+/* Close button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}

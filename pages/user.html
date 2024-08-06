@@ -5,10 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="../assets/images_public/favicon.png" type="">
   <title>SinGourmet - User</title>
-  <link rel="stylesheet" href="../assets/css_public/bootstrap.css?version=1">
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="../assets/css_public/bootstrap.css" />
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+  <!-- nice select  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css"
+    integrity="sha512-CruCP+TD3yXzlvvijET8wV5WxxEh5H8P4cmz0RFbKK6FlZ2sYl3AEsKlLPHbniXKSrDdFewhbmBK5skbdsASbQ=="
+    crossorigin="anonymous" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="stylesheet" href="../assets/css_public/style.css?version=1">
-  <link rel="stylesheet" href="../assets/css_public/user.css?version=1">
+  <link href="../assets/css_public/font-awesome.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css_public/style.css?version=17">
+  <link rel="stylesheet" href="../assets/css_public/user.css?version=3">
+  <link href="../assets/css_public/responsive.css" rel="stylesheet" />
 </head>
 <body class="sub_page">
   <div class="hero_area">
@@ -50,9 +60,9 @@
                 </svg>
               </a>
               <form class="form-inline">
-                <button class="btn my-2 my-sm-0 nav_search-btn" type="submit">
+                <!-- <button class="btn my-2 my-sm-0 nav_search-btn" type="submit">
                   <i class="fa fa-search" aria-hidden="true"></i>
-                </button>
+                </button> -->
               </form>
               <a href="../php/logout.php" class="order_online" id="authButton"></a>
             </div>
@@ -63,6 +73,33 @@
     <!-- end header section -->
   </div>
 
+  <!-- Create Recipe Modal -->
+  <div id="createRecipeModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeCreateRecipeModal()">&times;</span>
+      <h2>Create Recipe</h2>
+      <form id="createRecipeForm" action="../php/user_create_recipe.php" method="POST" enctype="multipart/form-data">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required>
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required></textarea>
+        <label for="ingredients">Ingredients:</label>
+        <textarea id="ingredients" name="ingredients" required></textarea>
+        <label for="steps">Steps:</label>
+        <textarea id="steps" name="steps" required></textarea>
+        <label for="image">Upload Image:</label>
+        <input type="file" id="image" name="image" accept="image/*" required>
+        <label for="tier">Tier:</label>
+        <select name="tier" required>
+          <option value="1">Free</option>
+          <option value="2">Community</option>
+          <option value="3">Chef</option>
+        </select>
+        <button type="submit">Create</button>
+      </form>
+    </div>
+  </div>
+
   <section class="layout_padding">
     <div class="container">
       <div class="heading_container">
@@ -70,18 +107,18 @@
         <p>Your email: <span id="email">loading...</span></p>
         <p>Subscription Tier: <span id="tier">loading...</span></p>
         <button class="subscribe-button" onclick="window.location.href='subscribe.html'">Subscribe</button>
+        <!-- <button class="subscribe-button" onclick="openCreateRecipeModal()">Create Recipe</button> -->
       </div>
       <div class="profile_section">
         <div class="profile_image">
-          <!-- <img src="../assets/images_public/client2.jpg" alt="Profile Picture" class="profile_picture" id="profilePicture"> -->
           <img id="profilePicture" src="../assets/images_public/client2.jpg" alt="Profile Picture" class="profile_picture">
           <!-- Hyperlink to change profile picture -->
           <a href="#" id="changeProfilePicLink">Update Image</a>
         </div>
         <input type="file" id="profilePicInput" accept="image/*">
+
         <div class="profile_info">
           <div class="profile_stats">
-            <p>xx Own Recipes</p>
             <p>xx Free Recipes</p>
             <p>xx Community Recipes</p>
             <p>xx Chef Recipes</p>
@@ -92,38 +129,36 @@
           <!-- <div>
             <button class="subscribe-button" onclick="window.location.href='subscribe.html'">Subscribe</button>
           </div> -->
+          <!-- <div class="tabs_section">
+            <button class="tab_btn" id="ownTab"><i class="fas fa-th-large"></i> Own</button>
+            <button class="tab_btn" id="freeTab"><i class="fas fa-file-alt"></i> Free</button>
+            <button class="tab_btn" id="communityTab"><i class="fas fa-users"></i> Community</button>
+            <button class="tab_btn" id="chefTab"><i class="fas fa-utensils"></i> Chef</button>
+          </div> -->
         </div>
       </div>
-
-
-      <div class="tabs_section">
-        <button class="tab_btn" id="ownTab"><i class="fas fa-th-large"></i> Own</button>
-        <button class="tab_btn" id="freeTab"><i class="fas fa-file-alt"></i> Free</button>
-        <button class="tab_btn" id="communityTab"><i class="fas fa-users"></i> Community</button>
-        <button class="tab_btn" id="chefTab"><i class="fas fa-utensils"></i> Chef</button>
-      </div>
-      <div class="content_section" id="ownContent">
-        <!-- Own content items go here -->
-        <button id="viewMoreOwn" class="view_more_btn">View More</button>
-      </div>
-      
-      <div class="content_section" id="freeContent" style="display: none;">
-        <!-- Free content items go here -->
-        <button id="viewMoreFree" class="view_more_btn">View More</button>
-      </div>
-      
-      <div class="content_section" id="communityContent" style="display: none;">
-        <!-- Community content items go here -->
-        <button id="viewMoreCommunity" class="view_more_btn">View More</button>
-      </div>
-      
-      <div class="content_section" id="chefContent" style="display: none;">
-        <!-- Chef content items go here -->
-        <button id="viewMoreChef" class="view_more_btn">View More</button>
-      </div>
-
     </div>
   </section>
+
+  <div class="main-content">
+    <section class="food_section layout_padding" style="padding-top:0px;">
+      <div class="container">
+        <ul class="filters_menu">
+          <li class="active" data-filter="*">All</li>
+          <li data-filter="1">Free</li>
+          <li data-filter="2">Community</li>
+          <li data-filter="3">Chef</li>
+        </ul>
+        <div class="filters-content">
+          <div class="row grid" id="user-container">
+          </div>
+        </div>
+        <div class="btn-box">
+          <a href="#" id="view-more">View More</a>
+        </div>
+      </div>
+    </section>
+  </div>
 
   <footer class="footer_section">
     <div class="container">
@@ -175,13 +210,13 @@
       </div>
     </div>
   </footer>
-
+  
   <!-- jQuery -->
   <script src="../assets/js_public/jquery-3.4.1.min.js"></script>
   <!-- popper js -->
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <!-- bootstrap js -->
-  <script src="../assets/js_public/bootstrap.js?version=1"></script>
+  <script src="../assets/js_public/bootstrap.js"></script>
   <!-- owl slider -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
   <!-- isotope js -->
@@ -189,9 +224,33 @@
   <!-- nice select -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
   <!-- custom js -->
-  <script src="../assets/js_public/user.js?version=7"></script>
-  <script src="../assets/js_public/custom.js?version=9"></script>
+  <script src="../assets/js_public/user.js?version=22"></script>
+  <!-- <script src="../assets/js_public/custom.js?version=9"></script> -->
+  <script>
+  window.onload = function() {
+    fetch('../php/user.php')
+      .then(response => response.json())
+      .then(data => {
+        console.log('Fetched data:', data); // Debug log
 
+        if (data.loggedIn) {
+          document.getElementById('authButton').textContent = 'Log out';
+          document.getElementById('authButton').href = '../php/logout.php'; // Redirect to logout script
+
+          if (data.success && data.filePath) {
+            document.getElementById('profilePicture').src = data.filePath;
+          }
+
+          document.getElementById('username').textContent = data.username;
+          document.getElementById('email').textContent = data.email;
+        } else {
+          document.getElementById('authButton').textContent = 'Log in';
+          document.getElementById('authButton').href = '../../pages/user_login.html'; // Redirect to login page
+        }
+      })
+      .catch(error => console.error('Error fetching user data:', error));
+  };
+  </script>
 </body>
 
 </html>

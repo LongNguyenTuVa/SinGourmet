@@ -27,20 +27,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Prepare and bind
-    $stmt = $conn->prepare("SELECT user_id, username, password_hash FROM Users WHERE email = ? OR username = ?");
+    $stmt = $conn->prepare("SELECT user_id, username, password_hash, tier FROM Users WHERE email = ? OR username = ?");
     $stmt->bind_param("ss", $userInput, $userInput);
     $stmt->execute();
     $stmt->store_result();
 
     // Check if user exists
     if ($stmt->num_rows > 0) {
-        $stmt->bind_result($db_id, $db_username, $db_password);
+        $stmt->bind_result($db_id, $db_username, $db_password, $tier);
         $stmt->fetch();
 
         // Verify password
         if (password_verify($password, $db_password)) {
             // Store username in session
             $_SESSION['user_id'] = $db_id;
+            $_SESSION['tier'] = $tier;
             $_SESSION['username'] = $db_username;
             echo "success"; // Indicate success to the client
         } else {
